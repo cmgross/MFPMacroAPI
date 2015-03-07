@@ -106,7 +106,8 @@ namespace Scraper
 
         private static bool IsPublic(HtmlDocument document)
         {
-            HtmlNode primaryDiv = document.DocumentNode.Descendants("div").First(d => d.Attributes.Contains("class") && d.Attributes["class"].Value == "block-1");
+            HtmlNode primaryDiv = document.DocumentNode.Descendants("div").FirstOrDefault(d => d.Attributes.Contains("class") && d.Attributes["class"].Value == "block-1");
+            if (primaryDiv == null) return true;
             return !primaryDiv.InnerHtml.Contains("This user is not allowing others to view his or her diary");
         }
         private static Dictionary<string, string> BuildNutritionDictionary(HtmlNodeCollection headerCells,
@@ -134,7 +135,6 @@ namespace Scraper
             public string Protein { get; set; }
             public string Fat { get; set; }
             public string Carbs { get; set; }
-            //TODO compute calories from protein, fat, carbs. return higher number of calories
         }
     }
 }
