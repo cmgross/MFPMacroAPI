@@ -17,15 +17,15 @@ namespace MFPMacroAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //GlobalConfiguration.Configuration.Formatters.Clear();
-            ////GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
+            GlobalConfiguration.Configuration.Formatters.Clear();
+            //GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
 
-            //JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
-            //serializerSettings.Converters.Add(new IsoDateTimeConverter());
-            //var jsonFormatter = new JsonMediaTypeFormatter();
-            //jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-            //GlobalConfiguration.Configuration.Formatters.Insert(0, jsonFormatter);
-            //GlobalConfiguration.Configuration.Formatters.Insert(1, new XmlMediaTypeFormatter());
+            JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
+            serializerSettings.Converters.Add(new IsoDateTimeConverter());
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            GlobalConfiguration.Configuration.Formatters.Insert(0, jsonFormatter);
+            GlobalConfiguration.Configuration.Formatters.Insert(1, new XmlMediaTypeFormatter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
