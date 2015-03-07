@@ -1,0 +1,7 @@
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\Scraper.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.xml
