@@ -33,7 +33,7 @@ namespace MFPMacroAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, GetValues(results));
         }
 
-        private List<string> GetValues(Scraper.Scraper.NutritionRecord nutritrionRecord)
+        private string GetValues(Scraper.Scraper.NutritionRecord nutritrionRecord)
         {
             var values = new List<string>
             {
@@ -42,7 +42,7 @@ namespace MFPMacroAPI.Controllers
                 nutritrionRecord.Fat,
                 nutritrionRecord.Carbs
             };
-            return values;
+            return values.ToString();
         }
     }
 }
