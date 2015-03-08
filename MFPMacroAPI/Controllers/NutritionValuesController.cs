@@ -17,12 +17,12 @@ namespace MFPMacroAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        //GET api/nutritionvalues/chuckgross/2015-03-05
-        public HttpResponseMessage Get(string userName, string date)
+        //GET api/nutritionvalues/chuckgross/03-08-2015
+        public HttpResponseMessage Get(string userName, DateTime date)
         {
-            //todo check parameters
-            //call screenscrape library with parameters, check the return type (error, etc)
-            var results = Scraper.Scraper.Scrape(userName, date);
+            //date format is going to come in as MM/DD/YYYY, reformat it to YYYY-MM-DD
+            var formattedDate = date.ToString("yyyy-MM-dd");
+            var results = Scraper.Scraper.Scrape(userName, formattedDate);
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(GetValues(results)) };
             responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             responseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -35,8 +35,6 @@ namespace MFPMacroAPI.Controllers
         //GET api/nutritionvalues/chuckgross/
         public HttpResponseMessage GetToday(string userName)
         {
-            //todo check parameters
-            //call screenscrape library with parameters, check the return type (error, etc)
             var results = Scraper.Scraper.Scrape(userName);
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(GetValues(results)) };
             responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
