@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace MFPMacroAPI.Controllers
@@ -35,13 +36,13 @@ namespace MFPMacroAPI.Controllers
 
         private string GetValues(Scraper.Scraper.NutritionRecord nutritrionRecord)
         {
-            var values = new List<string>
-            {
-                nutritrionRecord.Calories,
-                nutritrionRecord.Protein,
-                nutritrionRecord.Fat,
-                nutritrionRecord.Carbs
-            };
+            var values = new StringBuilder(nutritrionRecord.Calories);
+            values.Append(",");
+            values.Append(nutritrionRecord.Protein);
+            values.Append(",");
+            values.Append(nutritrionRecord.Fat);
+            values.Append(",");
+            values.Append(nutritrionRecord.Carbs);
             return values.ToString();
         }
     }
