@@ -23,7 +23,7 @@ namespace MFPMacroAPI.Controllers
             //date format is going to come in as MM/DD/YYYY, reformat it to YYYY-MM-DD
             var formattedDate = date.ToString("yyyy-MM-dd");
             var results = Scraper.Scraper.Scrape(userName, formattedDate);
-            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(GetValues(results)) };
+            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(results.ToString()) };
             responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             responseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
@@ -36,25 +36,13 @@ namespace MFPMacroAPI.Controllers
         public HttpResponseMessage GetToday(string userName)
         {
             var results = Scraper.Scraper.Scrape(userName);
-            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(GetValues(results)) };
+            var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(results.ToString()) };
             responseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             responseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = "results.csv"
             };
             return responseMessage;
-        }
-
-        private string GetValues(Scraper.Scraper.NutritionRecord nutritrionRecord)
-        {
-            var values = new StringBuilder(nutritrionRecord.Calories);
-            values.Append(",");
-            values.Append(nutritrionRecord.Protein);
-            values.Append(",");
-            values.Append(nutritrionRecord.Fat);
-            values.Append(",");
-            values.Append(nutritrionRecord.Carbs);
-            return values.ToString();
         }
     }
 }
