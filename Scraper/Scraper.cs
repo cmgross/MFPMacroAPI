@@ -52,6 +52,7 @@ namespace Scraper
 
             using (var client = new WebClient())
             {
+                client.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)";
                 results = client.DownloadString(url);
             }
             var document = new HtmlDocument();
