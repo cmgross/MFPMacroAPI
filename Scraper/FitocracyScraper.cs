@@ -22,6 +22,7 @@ namespace Scraper
             //      <div class="stream-item-headline">
             //          <a class="action_time gray_link" href="/entry/41562425/">2015-07-22T20:38:27</a>
             HtmlNodeCollection workouts = document.DocumentNode.SelectNodes("//a[contains(@class,'action_time gray_link')]");
+            if (workouts == null) return new List<DateTime>();
             var dates = workouts.Select(workout => DateTime.Parse(workout.InnerHtml.Split('T')[0])).ToList();
             return dates;
         }

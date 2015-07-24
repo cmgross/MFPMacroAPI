@@ -17,7 +17,7 @@ namespace MFPMacroAPI.Controllers
             var recentWorkouts = FitocracyScraper.GetLast15WorkoutDates(userName);
             //var workoutsInPastWeek = recentWorkouts.Where(w => w > (selectedDate.AddDays(-7))).ToList();
             //string results = string.Join(",", workoutsInPastWeek);
-            var results = recentWorkouts.Count(w => w > (selectedDate.AddDays(-7)));
+            var results = recentWorkouts.Count(w => w >= (selectedDate.AddDays(-7)));
             var responseMessage = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(results.ToString()) };
             return responseMessage;
         }
