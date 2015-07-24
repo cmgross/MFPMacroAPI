@@ -13,3 +13,13 @@ C:\Users\Chuck\Documents\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scr
 C:\Users\Chuck\Documents\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.csprojResolveAssemblyReference.cache
 C:\Users\Chuck\Documents\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.dll
 C:\Users\Chuck\Documents\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\Scraper.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\HtmlAgilityPack.xml
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\ServiceStack.Text.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\bin\Debug\ServiceStack.Text.xml
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\Scraper\obj\Debug\Scraper.csprojResolveAssemblyReference.cache
