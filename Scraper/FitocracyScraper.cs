@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Cache;
 using System.Text;
 using System.Web;
 using HtmlAgilityPack;
@@ -13,9 +15,14 @@ namespace Scraper
 {
     public class FitocracyScraper
     {
+        const string BaseUrl = "https://www.fitocracy.com";
+
         public static List<DateTime> GetLast15WorkoutDates(string userName)
         {
-            var document = DownloadFeed(userName);
+            var loginResponse = Cacheable.Login();
+            var userId = Cacheable.GetUserId(userName, loginResponse); //in Dauber, this will be a parameter stored in db when adding client's fito name, and cached tolookup?
+            var document = GetActivityFeed(userId, loginResponse);
+            //var document = DownloadFeed(userName);
 
             //<div class="stream-inner">
             //  <div class="stream_item clearfix stream-item-safe" data-ag-type="workout" id="stream_item_41562425">
@@ -27,17 +34,39 @@ namespace Scraper
             return dates;
         }
 
-        private static HtmlDocument DownloadFeed(string userName)
+        private static HtmlDocument GetActivityFeed(string userId, CookieCollection cookies)
         {
-            const string baseUrl = "https://www.fitocracy.com";
+            var cookieJar = new CookieContainer();
+            cookieJar.Add(cookies);
+            #region GetActivityForUser
+            var activityUrl = BaseUrl + "/activity_stream/0/?user_id=" + userId + "&types=WORKOUT";
+            var request = (HttpWebRequest)WebRequest.Create(activityUrl);
+            request.CookieContainer = cookieJar;
+            request.UserAgent = "Dauber";
+
+            var activityPage = new HtmlDocument();
+
+            using (var response = request.GetResponse())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    activityPage.Load(stream);
+                }
+            }
+            #endregion
+            return activityPage;
+        }
+
+        internal static CookieCollection Login()
+        {
             #region GetLogin
-            const string loginUrl = baseUrl + "/accounts/login/";
+            const string loginUrl = BaseUrl + "/accounts/login/";
             var cookieJar = new CookieContainer();
             var request = (HttpWebRequest)WebRequest.Create(loginUrl);
             request.CookieContainer = cookieJar;
             request.UserAgent = "Dauber";
             var getResponse = request.GetResponse();
-            var tokenCookie = request.CookieContainer.GetCookies(new Uri(baseUrl))["csrftoken"];
+            var tokenCookie = request.CookieContainer.GetCookies(new Uri(BaseUrl))["csrftoken"];
             #endregion
 
             #region PostLogin
@@ -55,14 +84,21 @@ namespace Scraper
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            var getLoginResponse = request.GetResponse();
+            var getLoginResponse = request.GetResponse() as HttpWebResponse;
             #endregion
 
+            return getLoginResponse.Cookies;
+        }
 
+        internal static string GetUserId(string userName, CookieCollection cookies)
+        {
+            var cookieJar = new CookieContainer();
+            cookieJar.Add(cookies);
             #region GetProfile - Gets userId
-            var profileUrl = baseUrl + "/profile/" + userName;
-            request = (HttpWebRequest)WebRequest.Create(profileUrl);
+            var profileUrl = BaseUrl + "/profile/" + userName;
+            var request = (HttpWebRequest)WebRequest.Create(profileUrl);
             request.CookieContainer = cookieJar;
+
             request.UserAgent = "Dauber";
 
             var profilePage = new HtmlDocument();
@@ -83,27 +119,9 @@ namespace Scraper
             var userId = profilePage.GetElementbyId("duel_form")
                 .GetAttributeValue("action", string.Empty)
                 .Replace("/set_duel/", string.Empty).Replace("/", string.Empty);
-
-
             #endregion
 
-            #region GetActivityForUser
-            var activityUrl = baseUrl + "/activity_stream/0/?user_id=" + userId + "&types=WORKOUT";
-            request = (HttpWebRequest)WebRequest.Create(activityUrl);
-            request.CookieContainer = cookieJar;
-            request.UserAgent = "Dauber";
-
-            var activityPage = new HtmlDocument();
-
-            using (var response = request.GetResponse())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    activityPage.Load(stream);
-                }
-            }
-            #endregion
-            return activityPage;
+            return userId;
         }
 
         private static string FormatArgs(object args)
