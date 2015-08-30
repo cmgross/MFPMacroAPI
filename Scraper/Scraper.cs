@@ -11,6 +11,16 @@ namespace Scraper
 {
     public class Scraper
     {
+        public static string ScrapeCalories(string clientUserName, string date = null)
+        {
+            if (date == null) date = DateTime.Today.ToString("yyyy-MM-dd");
+            var document = DownloadDiary(clientUserName, date);
+            HtmlNode footer = document.DocumentNode.Descendants("tfoot").FirstOrDefault();
+            if (footer == null) return string.Empty;
+            HtmlNode totalsRow = footer.Descendants("tr").First();
+            HtmlNodeCollection cells = totalsRow.SelectNodes(".//td[not(@class='first') and not(@class='last')]");
+            return cells[0].InnerText.Replace(",", string.Empty);
+        }
         public static Macros Scrape(string clientUserName, string date = null)
         {
             if (date == null) date = DateTime.Today.ToString("yyyy-MM-dd");
