@@ -150,3 +150,5 @@ C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\MFPMacroAPI\bin
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\MFPMacroAPI\obj\Debug\MFPMacroAPI.csprojResolveAssemblyReference.cache
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\MFPMacroAPI\obj\Debug\MFPMacroAPI.dll
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\MFPMacroAPI\obj\Debug\MFPMacroAPI.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\bin\ServiceStack.Text.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\MFPMacroAPI\bin\ServiceStack.Text.xml

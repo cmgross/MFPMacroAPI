@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using ServiceStack;
 
 namespace Scraper
 {
@@ -55,6 +56,31 @@ namespace Scraper
             return macros;
         }
 
+        public static MacrosWithWater ScrapeMacrosWithWater(string clientUserName, string date = null)
+        {
+            var macros = Scrape(clientUserName, date);
+            var water = GetWaterAmount(clientUserName, date);
+            return new MacrosWithWater(macros, water);
+        }
+
+        private static string GetWaterAmount(string clientUserName, string date = null)
+        {
+            if (date == null) date = DateTime.Today.ToString("yyyy-MM-dd");
+            string url = "http://www.myfitnesspal.com/food/diary/" + clientUserName + "?date=" + date;
+            string results;
+
+            using (var client = new WebClient())
+            {
+                client.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)";
+                results = client.DownloadString(url);
+            }
+            var document = new HtmlDocument();
+            document.LoadHtml(results);
+            //<div class="water-counter" id="water_cups">
+            var waterDiv = document.GetElementbyId("water_cups");
+            var cups = waterDiv.InnerText.Trim();
+            return cups.IsNullOrEmpty() ? "0" : cups;
+        }
         private static HtmlDocument DownloadDiary(string clientUserName, string date = null)
         {
             if (date == null) date = DateTime.Today.ToString("yyyy-MM-dd");
@@ -91,6 +117,36 @@ namespace Scraper
             public override string ToString()
             {
                 return Calories + "," + Protein + "," + Fat + "," + Carbs + "," + Fiber;
+            }
+        }
+
+        public class MacrosWithWater : Macros
+        {
+            public string Water { get; set; }
+
+            public MacrosWithWater()
+            {
+                Calories = "0";
+                Protein = "0";
+                Fat = "0";
+                Carbs = "0";
+                Fiber = "0";
+                Water = "0";
+            }
+
+            public MacrosWithWater(Macros macros, string water)
+            {
+                Calories = macros.Calories;
+                Protein = macros.Protein;
+                Fat = macros.Fat;
+                Carbs = macros.Carbs;
+                Fiber = macros.Fiber;
+                Water = water;
+            }
+
+            public override string ToString()
+            {
+                return Calories + "," + Protein + "," + Fat + "," + Carbs + "," + Fiber + "," + Water;
             }
         }
 

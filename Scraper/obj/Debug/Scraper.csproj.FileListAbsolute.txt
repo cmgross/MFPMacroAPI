@@ -32,3 +32,6 @@ C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\Scraper\bin\Deb
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.csprojResolveAssemblyReference.cache
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.dll
 C:\Users\Chuck\Documents\Visual Studio 2015\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.pdb
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\ServiceStack.Text.dll
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\bin\Debug\ServiceStack.Text.xml
+C:\VS\Visual Studio 2013\Projects\MFPMacroAPI\Scraper\obj\Debug\Scraper.csprojResolveAssemblyReference.cache

@@ -159,6 +159,7 @@
     <Compile Include="Controllers\CaloriesController.cs" />
     <Compile Include="Controllers\FitoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NutritionAndWaterController.cs" />
     <Compile Include="Controllers\NutritionController.cs" />
     <Compile Include="Controllers\NutritionValuesController.cs" />
     <Compile Include="Global.asax.cs">
